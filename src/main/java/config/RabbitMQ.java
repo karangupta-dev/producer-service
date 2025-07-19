@@ -18,7 +18,8 @@ public class RabbitMQ {
     @Value("${spring.rabbitmq.exchange}")
     private String exchange;
 
-
+    @Value("${spring.rabbitmq.routingkey}")
+    private String routingKey;
 
     @Bean
     public Queue queue() {
@@ -32,7 +33,7 @@ public class RabbitMQ {
 
     @Bean
     public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(queueName);
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
 
     @Bean
