@@ -5,13 +5,12 @@ import model.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController
+@RestController()
+@RequestMapping(value = "/api")
 public class MessageController {
 
     @Autowired
@@ -32,6 +31,11 @@ public class MessageController {
         rabbitTemplate.convertAndSend(exchange, routingKey, message);
 
         return "Message sent successfully!";
+    }
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello from service!";
     }
 
 }
